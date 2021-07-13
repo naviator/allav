@@ -12,10 +12,11 @@ RUN apt-get install -y \
     wget \
     g++ \
     make \
+    cmake \
+    python3 \
     yasm \
     git \
     autoconf \
-    libaom-dev \
     libfaac-dev \
     libfdk-aac-dev \
     libfreetype6-dev \
@@ -44,6 +45,14 @@ WORKDIR /lame-3.100
 RUN ./configure && make && make install
 RUN ldconfig
 
+ARG LIBAOM_VERSION=v3.1.0
+RUN mkdir -p /tmp/ffmpeg_sources/libaom && \
+  cd /tmp/ffmpeg_sources/libaom && \
+  git clone https://aomedia.googlesource.com/aom && \
+  git -C aom/ checkout $LIBAOM_VERSION && \
+  cmake ./aom && \
+  make && \
+  make install
 
 # Build FFMpeg v4.4
 ARG FFMPEG_VERSION=4.4
