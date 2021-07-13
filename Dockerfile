@@ -30,7 +30,6 @@ RUN apt-get install -y \
     libvo-amrwbenc-dev \
     libvorbis-dev \
     libvpx-dev \
-    libwavpack-dev \
     libx264-dev \
     libx265-dev \
     libxvidcore-dev \
@@ -46,11 +45,12 @@ RUN ./configure && make && make install
 RUN ldconfig
 
 
-# Build FFMpeg v4.3.1
+# Build FFMpeg v4.4
+ARG FFMPEG_VERSION=4.4
 WORKDIR /
-RUN wget https://ffmpeg.org/releases/ffmpeg-4.3.1.tar.gz
-RUN tar -xvf ffmpeg-4.3.1.tar.gz
-WORKDIR /ffmpeg-4.3.1
+RUN wget https://ffmpeg.org/releases/ffmpeg-$FFMPEG_VERSION.tar.gz
+RUN tar -xvf ffmpeg-$FFMPEG_VERSION.tar.gz
+WORKDIR /ffmpeg-$FFMPEG_VERSION
 RUN ./configure --enable-gpl \
                 --enable-libaom \
                 --enable-libfdk-aac \
@@ -65,8 +65,6 @@ RUN ./configure --enable-gpl \
                 --enable-libvo-amrwbenc \
                 --enable-libvorbis \
                 --enable-libvpx \
-                --enable-libwavpack \
-                --enable-libwavpack \
                 --enable-libx264 \
                 --enable-libx265 \
                 --enable-libxvid \
