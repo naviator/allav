@@ -45,7 +45,7 @@ WORKDIR /lame-3.100
 RUN ./configure && make && make install
 RUN ldconfig
 
-ARG LIBAOM_VERSION=v3.1.0
+ARG LIBAOM_VERSION=v3.1.1
 RUN mkdir -p /tmp/ffmpeg_sources/libaom && \
   cd /tmp/ffmpeg_sources/libaom && \
   git clone https://aomedia.googlesource.com/aom && \
